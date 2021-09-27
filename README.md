@@ -1,7 +1,7 @@
 # Summary
-Learn about 'Robot Vision' using Matlab & C++
+###Learn about 'Robot Vision' using Matlab & C++
 
-Lecture : Robot Vision
+Lecture : Robot Vision<br>
 Professor : HyungGi Jo
 - Assistant Professor, Division of Electronic Engineering
 - AI Robotics Lab. (https://sites.google.com/view/jair-lab)
