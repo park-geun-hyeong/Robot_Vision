@@ -1,4 +1,4 @@
-## Camera Calibration
+## HW1. Camera Calibration
 
 ![화면 캡처 2021-10-13 014359](https://user-images.githubusercontent.com/69515694/136996832-4b8879d9-5b10-4e77-9ba2-c68c917edffd.png)
 - 임의의 카메라의 설치 위치와 각도에 따라 사람의 발(파란 점)의 3차원 좌표를 구하는 Matlab 코드를 작성하세요. 
