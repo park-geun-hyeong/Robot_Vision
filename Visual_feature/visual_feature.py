@@ -49,7 +49,7 @@ def bf_match(visualfeature, method=None):
         matcher = cv2.BFMatcher(cv2.NORM_HAMMING) # Hamming distance 사용
     
     # 매칭결과를 거리기준 오름차순으로 정렬하여 상위 50개 추출
-    BF_match = sorted(matcher.match(desc1, desc2), key = lambda x: x.distance)[:50] 
+    BF_match = sorted(matcher.match(desc1, desc2), key = lambda x: x.distance)[:100] 
     
     # BF_match의 queryIdx를 사용하여 첫번째 이미지의 매칭 좌표 구하기
     pts1 = np.array([keypoints1[m.queryIdx].pt for m in BF_match]).reshape(-1,1,2).astype(np.float32)
@@ -227,7 +227,7 @@ def compare_matching(BF_match, BF_knn, Flann_match, Flann_knn):
 
 ############################ compare Approximation calculation algorithm ######################################
 def compare_method():
-    method = [None, cv2.RANSAC, cv2.LMEDS, cv2.RHO]
+    method = [None, cv2.RANSAC, cv2.LMEDS]
     
     dst=[]
     for m in method:
@@ -235,9 +235,8 @@ def compare_method():
         dst.append(d)
         
     cv2.imshow('method = None', dst[0])    
-    #cv2.imshow('method = RANSAC', dst[1])
-    #cv2.imshow('method = LMEDS', dst[2])
-    #cv2.imshow('method = RHO', dst[3])
+    cv2.imshow('method = RANSAC', dst[1])
+    cv2.imshow('method = LMEDS', dst[2])
     
     cv2.waitKey()
     cv2.destroyAllWindows()
@@ -264,19 +263,19 @@ if __name__ == "__main__":
              
     src1 = cv2.resize(cv2.imread('school1.jpg', cv2.IMREAD_GRAYSCALE), dsize=(480,480), interpolation = cv2.INTER_AREA)
     src2 = cv2.resize(cv2.imread('school2.jpg', cv2.IMREAD_GRAYSCALE), dsize=(480,480), interpolation = cv2.INTER_AREA)  
-    #src1 = cv2.imread('myimg1.jpg', cv2.IMREAD_GRAYSCALE)
-    #src2 = cv2.imread('myimg2.jpg', cv2.IMREAD_GRAYSCALE)   
+
+   
     if src1 is None or src2 is None:
         print("Image load failed!")
         sys.exit()
     
-    #compare_visualfeature(bf_match(visual_feature("SIFT")), bf_match(visual_feature("SURF")), \
-    #                           bf_match(visual_feature("ORB")), bf_match(visual_feature("KAZE")))
+    compare_visualfeature(bf_match(visual_feature("SIFT")), bf_match(visual_feature("SURF")), \
+                              bf_match(visual_feature("ORB")), bf_match(visual_feature("KAZE")))
     
-    #compare_matching(bf_match(visual_feature("SIFT")), bf_knn(visual_feature("SIFT")), \
-    #                flann_match(visual_feature("SIFT")), flann_knn(visual_feature("SIFT"))) 
+    compare_matching(bf_match(visual_feature("SIFT")), bf_knn(visual_feature("SIFT")), \
+                   flann_match(visual_feature("SIFT")), flann_knn(visual_feature("SIFT"))) 
     
-    #compare_method()   
+    compare_method()   
     
     EssentialMatrix(flann_match(visual_feature("ORB")))
     
